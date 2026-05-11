@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>番茄钟</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Top App Bar -->
+    <header class="top-bar">
+      <span class="top-bar-title">番茄钟</span>
+      <button class="icon-btn" id="settingsBtn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.611 3.611 0 0112 15.6z"/>
+        </svg>
+      </button>
+    </header>
+
+    <main class="content">
+      <!-- Segmented Button -->
+      <div class="segmented-btn" id="modeSelector">
+        <button class="seg-btn seg-btn-active" id="pomodoroMode">番茄模式</button>
+        <button class="seg-btn" id="gameMode">游戏模式</button>
+      </div>
+
+      <!-- Timer Ring -->
+      <div class="timer-container">
+        <div class="timer-ring-wrapper">
+          <svg class="timer-ring-svg" viewBox="0 0 200 200">
+            <circle class="timer-ring-bg" cx="100" cy="100" r="88"/>
+            <circle class="timer-ring-progress" id="timerProgress" cx="100" cy="100" r="88"/>
+          </svg>
+          <div class="timer-center">
+            <div class="timer-digits">
+              <span id="minutes">25</span><span class="timer-colon">:</span><span id="seconds">00</span>
+            </div>
+            <div class="timer-label" id="timerLabel">专注时间</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pomodoro Dots -->
+      <div class="pomodoro-indicator" id="pomodoroIndicator">
+        <div class="pomodoro-dots" id="pomodoroDots">
+          <span class="pdot"></span>
+          <span class="pdot"></span>
+          <span class="pdot"></span>
+          <span class="pdot"></span>
+        </div>
+        <span class="pomodoro-text">番茄数</span>
+      </div>
+
+      <!-- Control Buttons -->
+      <div class="controls">
+        <button class="btn-outlined" id="resetBtn">重置</button>
+        <button class="btn-filled" id="startBtn">
+          <svg class="btn-icon" id="playIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <svg class="btn-icon" id="pauseIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+          <span id="startBtnText">开始</span>
+        </button>
+        <button class="btn-outlined" id="skipBtn">跳过</button>
+      </div>
+    </main>
+
+    <!-- Bottom Sheet -->
+    <div class="scrim hidden" id="scrim"></div>
+    <div class="bottom-sheet hidden" id="settingsPanel">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title">设置</h2>
+      <div class="sheet-content">
+        <div class="setting-row">
+          <span class="setting-label">主题</span>
+          <div class="segmented-btn segmented-btn-sm" id="themeSelector">
+            <button class="seg-btn seg-btn-active" data-value="light">浅色</button>
+            <button class="seg-btn" data-value="dark">深色</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">声音提醒</span>
+          <label class="switch">
+            <input type="checkbox" id="soundEnabled" checked>
+            <span class="switch-track"></span>
+          </label>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">振动反馈</span>
+          <label class="switch">
+            <input type="checkbox" id="vibrateEnabled" checked>
+            <span class="switch-track"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

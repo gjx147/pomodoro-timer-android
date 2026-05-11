@@ -1,0 +1,466 @@
+/* ============================================
+   Material Design 3 — Pomodoro Timer
+   ============================================ */
+
+:root {
+  /* MD3 Light Theme */
+  --md-primary: #2E7D32;
+  --md-on-primary: #FFFFFF;
+  --md-primary-container: #C8E6C9;
+  --md-on-primary-container: #002104;
+  --md-secondary: #4F6354;
+  --md-on-secondary: #FFFFFF;
+  --md-secondary-container: #D1E8D5;
+  --md-surface: #F8FAF6;
+  --md-surface-dim: #D8DBD5;
+  --md-surface-container-low: #F2F5EF;
+  --md-surface-container: #ECEEE9;
+  --md-surface-container-high: #E6E9E3;
+  --md-on-surface: #191D17;
+  --md-on-surface-variant: #43483F;
+  --md-outline: #73796E;
+  --md-outline-variant: #C3C8BB;
+  --md-inverse-surface: #2E322C;
+  --md-inverse-on-surface: #EFF2EB;
+
+  /* State colors */
+  --state-color: #2E7D32;
+
+  /* Elevation */
+  --md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+  --md-elevation-2: 0 2px 6px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+  --md-elevation-3: 0 4px 12px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.dark {
+  --md-primary: #81C784;
+  --md-on-primary: #00390E;
+  --md-primary-container: #005318;
+  --md-on-primary-container: #A5F5A2;
+  --md-secondary: #B5CCB9;
+  --md-on-secondary: #213528;
+  --md-secondary-container: #374B3E;
+  --md-surface: #111510;
+  --md-surface-dim: #111510;
+  --md-surface-container-low: #191D17;
+  --md-surface-container: #1D211B;
+  --md-surface-container-high: #272B25;
+  --md-on-surface: #E0E3DB;
+  --md-on-surface-variant: #C3C8BB;
+  --md-outline: #8D9387;
+  --md-outline-variant: #43483F;
+  --md-inverse-surface: #E0E3DB;
+  --md-inverse-on-surface: #2E322C;
+
+  --md-elevation-1: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --md-elevation-2: 0 2px 6px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);
+  --md-elevation-3: 0 4px 12px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* ============================================
+   Base
+   ============================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+body {
+  font-family: "Roboto", "Segoe UI", system-ui, sans-serif;
+  background-color: var(--md-surface);
+  color: var(--md-on-surface);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   Top App Bar (MD3 Small)
+   ============================================ */
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 8px;
+}
+
+.top-bar-title {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--md-on-surface);
+}
+
+.icon-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: none;
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 200ms ease;
+}
+
+.icon-btn:active {
+  background-color: var(--md-outline-variant);
+}
+
+/* ============================================
+   Content
+   ============================================ */
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px 32px;
+  gap: 28px;
+}
+
+/* ============================================
+   Segmented Button (MD3)
+   ============================================ */
+
+.segmented-btn {
+  display: flex;
+  border: 1px solid var(--md-outline);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.segmented-btn-sm {
+  border-radius: 16px;
+}
+
+.seg-btn {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  color: var(--md-on-surface);
+  cursor: pointer;
+  transition: all 200ms ease;
+  position: relative;
+}
+
+.seg-btn + .seg-btn {
+  border-left: 1px solid var(--md-outline);
+}
+
+.seg-btn-active {
+  background-color: var(--md-secondary-container);
+  color: var(--md-on-primary-container);
+}
+
+.seg-btn-active + .seg-btn,
+.seg-btn + .seg-btn-active {
+  border-left-color: transparent;
+}
+
+/* ============================================
+   Timer Ring
+   ============================================ */
+
+.timer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-ring-wrapper {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+
+.timer-ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer-ring-bg {
+  fill: none;
+  stroke: var(--md-surface-container-high);
+  stroke-width: 10;
+}
+
+.timer-ring-progress {
+  fill: none;
+  stroke: var(--state-color);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 553.0;
+  stroke-dashoffset: 0;
+  transition: stroke 400ms ease;
+}
+
+.timer-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-digits {
+  font-size: 64px;
+  font-weight: 300;
+  letter-spacing: -2px;
+  color: var(--md-on-surface);
+  line-height: 1;
+}
+
+.timer-colon {
+  opacity: 0.6;
+}
+
+.timer-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--state-color);
+  margin-top: 8px;
+  transition: color 400ms ease;
+}
+
+/* ============================================
+   Pomodoro Indicator
+   ============================================ */
+
+.pomodoro-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.pomodoro-dots {
+  display: flex;
+  gap: 12px;
+}
+
+.pdot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--md-outline-variant);
+  transition: background-color 300ms ease, transform 200ms ease;
+}
+
+.pdot.filled {
+  background-color: var(--state-color);
+  transform: scale(1.15);
+}
+
+.pomodoro-text {
+  font-size: 12px;
+  color: var(--md-on-surface-variant);
+  font-weight: 400;
+}
+
+/* ============================================
+   Buttons (MD3 Filled / Outlined)
+   ============================================ */
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-filled {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 32px;
+  height: 56px;
+  border: none;
+  border-radius: 28px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: var(--state-color);
+  color: var(--md-on-primary);
+  box-shadow: var(--md-elevation-1);
+  transition: all 200ms ease;
+}
+
+.btn-filled:active {
+  box-shadow: var(--md-elevation-2);
+  transform: scale(0.97);
+}
+
+.btn-filled.paused-state {
+  background-color: var(--md-surface-container-high);
+  color: var(--md-on-surface);
+  box-shadow: none;
+}
+
+.btn-icon {
+  display: none;
+}
+
+.btn-icon.visible {
+  display: block;
+}
+
+.btn-outlined {
+  height: 48px;
+  padding: 0 24px;
+  border: 1px solid var(--md-outline);
+  border-radius: 24px;
+  background: transparent;
+  color: var(--md-primary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.btn-outlined:active {
+  background-color: var(--md-primary-container);
+}
+
+/* ============================================
+   Bottom Sheet (MD3)
+   ============================================ */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 40;
+  transition: opacity 250ms ease;
+}
+
+.scrim.hidden {
+  display: none;
+}
+
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--md-surface-container-low);
+  border-radius: 28px 28px 0 0;
+  padding: 16px 24px 40px;
+  z-index: 50;
+  box-shadow: var(--md-elevation-3);
+  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.bottom-sheet.hidden {
+  display: none;
+}
+
+.sheet-handle {
+  width: 32px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--md-outline-variant);
+  margin: 0 auto 16px;
+}
+
+.sheet-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--md-on-surface);
+  margin-bottom: 20px;
+}
+
+.sheet-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.setting-label {
+  font-size: 16px;
+  color: var(--md-on-surface);
+}
+
+/* ============================================
+   Material Switch (MD3)
+   ============================================ */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 32px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  border: 2px solid var(--md-outline);
+  background-color: transparent;
+  transition: all 200ms ease;
+}
+
+.switch-track::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--md-outline);
+  top: 50%;
+  left: 6px;
+  transform: translateY(-50%);
+  transition: all 200ms ease;
+}
+
+.switch input:checked + .switch-track {
+  background-color: var(--state-color);
+  border-color: var(--state-color);
+}
+
+.switch input:checked + .switch-track::before {
+  background-color: var(--md-on-primary);
+  left: calc(100% - 22px);
+  width: 24px;
+  height: 24px;
+}
+
+/* ============================================
+   Theme Segmented Button in Settings
+   ============================================ */
+
+.segmented-btn-sm .seg-btn {
+  padding: 6px 16px;
+  font-size: 13px;
+}
